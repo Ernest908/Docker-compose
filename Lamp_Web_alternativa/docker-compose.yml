@@ -1,0 +1,39 @@
+version: '3.8'
+
+# Apache con PHP
+services:
+  apache:
+    build: .
+    container_name: apache
+    ports:
+      - "82:80"
+    volumes:
+      - ./php:/var/www/html
+    depends_on:
+      - mysql
+
+# MySQL
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Alumne_8
+      MYSQL_DATABASE: lamp
+      MYSQL_USER: usuario1
+      MYSQL_PASSWORD: Alumne_9
+
+# phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: Alumne_8
+
+# Adminer
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
